@@ -1,25 +1,45 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import NProgress from 'nprogress' // 进度条
+import 'nprogress/nprogress.css' // 进度条样式
+
+NProgress.configure({ showSpinner: false }) // 进度条配置 showSpinner表示旋转器是否开启（在右上角显示）
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'Home',
+    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue')
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/login',
+    name: 'Login',
+    component: () => import(/* webpackChunkName: "LoginRegister" */ '../views/LoginRegister.vue')
+  },
+  {
+    path: '/TailwindCss',
+    name: 'TailwindCss',
+    component: () => import('../views/TailwindCss.vue')
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: '404',
+    component: () => import(/* webpackChunkName: "404" */ '../views/404.vue')
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to,form,next)=>{
+  NProgress.start() // 开启进度条
+  next()
+})
+
+// 路由后置守卫
+router.afterEach(() => {
+  NProgress.done() // 进度条完成
 })
 
 export default router
