@@ -58,7 +58,9 @@ import "./styles/tailwind.css";
 
 /\*_ @type {import('tailwindcss').Config} _/;
 module.exports = {
-  content: [],
+  content: [
+    './src/**/*.{vue,js,ts,jsx,tsx}'
+  ],
   theme: {
     extend: {},
   },
@@ -80,6 +82,8 @@ module.exports = {
   },
 };
 ```
+## VsCode插件安装
+项目启动后，我们在写class类名时，肯定记不住那么多繁杂的类名，就需要用到编辑器插件了；打开VS Code的扩展面板，搜索Tailwind CSS IntelliSense 和 PostCSS Language Support
 
 ## 测试用例
 
